@@ -145,19 +145,19 @@ int main( int argc, char* argv[] )
 	    	{
 	    		double rmsdscore= ssi.getRmsdScore(A,B,L,d0);
 	    		cout<<"\nRMSD score: "<<rmsdscore<<endl<<endl;
-	    		ssi.printPDBFile(("RMSD"+outputFile).c_str(),*sp1,*sp2, A);
+	    		ssi.printPDBFile((outputFile+"RMSD.pdb").c_str(),*sp1,*sp2, A);
 
 	    		double tmscore= ssi.getTMScore(A, B, L);
 	    		cout<<"TM-score: "<<tmscore<<endl<<endl;
-	    		ssi.printPDBFile( ("TMS"+outputFile).c_str(),*sp1,*sp2, A);
+	    		ssi.printPDBFile( (outputFile+".TMS.pdb").c_str(),*sp1,*sp2, A);
 
 	    		double msscore= ssi.getMaxSubScore(A, B, L, d0);
 	    		cout<<"MaxSub score: "<<msscore<<endl<<endl;
-	    		ssi.printPDBFile( ("MSS"+outputFile).c_str(),*sp1,*sp2, A);
+	    		ssi.printPDBFile( (outputFile+"MSS").c_str(),*sp1,*sp2, A);
 
 	    		double gdttsscore= ssi.getGDTTSScore(A,B,L);
 				cout<<"GDT-TS score: "<<gdttsscore<<endl<<endl;
-				ssi.printPDBFile( ("GDTTS"+outputFile).c_str(),*sp1,*sp2, A);
+				ssi.printPDBFile( (outputFile+"GDTTS").c_str(),*sp1,*sp2, A);
 	    	}
 	    }
 		else
