@@ -25,6 +25,8 @@
 
 //using namespace Eigen;
 using namespace std;
+using namespace Victor;
+using namespace Victor::Biopool;
 
 /**
  *  Constructor

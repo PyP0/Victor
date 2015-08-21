@@ -21,6 +21,7 @@
 
 using namespace std;
 
+
 RotoTranslation::RotoTranslation()
 {}
 
