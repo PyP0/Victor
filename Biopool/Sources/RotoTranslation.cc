@@ -20,7 +20,8 @@
 #include <iostream>
 
 using namespace std;
-
+using namespace Victor;
+using namespace Victor::Biopool;
 
 RotoTranslation::RotoTranslation()
 {}
