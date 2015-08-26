@@ -206,7 +206,7 @@ Spacer StructuralSuperimposition::updateSpacerCoords(Spacer &spA, Eigen::Matrix<
 {
 	unsigned int AANumber= spA.sizeAmino();
 	Spacer updatedSp= Spacer(spA);
-	vector<Atom> aaAtoms;
+	vector<Atom> aaAtoms, sideChainAtoms;
 	vgVector3<double> spatialAtomCoords;
 	Eigen::Vector3d eigenAtomCoords;
 	if(A.rows() == 0)
@@ -241,6 +241,22 @@ Spacer StructuralSuperimposition::updateSpacerCoords(Spacer &spA, Eigen::Matrix<
 					eigenAtomCoords += optimalRotoTranslation.translation();
 
 					updatedSp.getAmino(i).getAtom(j).setCoords(eigenAtomCoords(0),eigenAtomCoords(1),eigenAtomCoords(2));
+				}
+
+
+				//for each amino, get its side chain and update its atoms coords in the same way
+				sideChainAtoms = updatedSp.getAmino(i).getSideChain().giveAtoms();
+				
+				for(unsigned k=0;k<sideChainAtoms.size();k++)
+				{
+					spatialAtomCoords = sideChainAtoms[k].getCoords();
+					eigenAtomCoords(0)= spatialAtomCoords[0];
+					eigenAtomCoords(1)= spatialAtomCoords[1];
+					eigenAtomCoords(2)= spatialAtomCoords[2];
+					eigenAtomCoords = optimalRotoTranslation.linear() * eigenAtomCoords;
+					eigenAtomCoords += optimalRotoTranslation.translation();
+
+					updatedSp.getAmino(i).getSideChain().getAtom(k).setCoords(eigenAtomCoords(0),eigenAtomCoords(1),eigenAtomCoords(2));
 				}
 			}
 		}
