@@ -12,9 +12,10 @@ using namespace std;
  
 int main( int argc, char* argv[] ) 
 {
-	double d0= 3.5;
-	int L=4;
+	double d0= 3.5; //algorithm threshold
+	int L=4; //algorithm seeds size
 	string inputFile1, inputFile2, outputFile, score;
+
 	// Check the number of parameters
     if (argc < 5)
     {
@@ -57,6 +58,7 @@ int main( int argc, char* argv[] )
     		cout<<"\nError on parsing seed_size: input must be >= 4."<<endl;
     		return 1;
     	}
+
     	//options parsing
 	    if(argc > 6)
 	    {
@@ -71,36 +73,34 @@ int main( int argc, char* argv[] )
 
     	if(score=="-r" || score=="-t" || score=="-m" || score=="-g" || score=="-a")
 	    {
+	    	
 	    	ifstream inFile1(inputFile1.c_str());
 			ifstream inFile2(inputFile2.c_str());
 			
 			Protein prot1, prot2;   
 			Spacer *sp1, *sp2;
 
-			
+	
 		    PdbLoader pl1(inFile1);
 		    PdbLoader pl2(inFile2);
 
-			pl1.setNoVerbose();
-		    pl2.setNoVerbose();
 		    pl1.setNoHAtoms();
 		    pl2.setNoHAtoms();
 
-			
+			cout<<"Loading protein A ("<<inputFile1<<")"<<endl;
 			prot1.load(pl1);       
+			cout<<endl<<endl<<"Loading protein B ("<<inputFile2<<")"<<endl;
 			prot2.load(pl2);       
+			cout<<endl<<endl;
 			
-		
+
 			vector<char> chain1 = prot1.getAllChains();
 			vector<char> chain2 = prot2.getAllChains();
 			
 			sp1=prot1.getSpacer(chain1[0]);
 			sp2=prot2.getSpacer(chain2[0]);
 			
-			
-			
 			StructuralSuperimposition s1, s2= StructuralSuperimposition();
-			
 			
 			Eigen::Matrix<double,Eigen::Dynamic,Eigen::Dynamic> A=StructuralSuperimposition::convertSpacerToEigen(sp1);
 
